@@ -1,4 +1,4 @@
-# Лабораторна робота №1
+# Лабораторна робота №2
 Простий застосунок онлайн магазину. Працює локально на порту 5000.
 
 ## Перед запуском та тестуванням
@@ -10,26 +10,26 @@
 ## Ручне тестування
 Реєстрація:
 ```bash
-curl -X POST http://localhost:5000/register \
+curl -X POST http://localhost:5000/api/v1/register \
      -H "Content-Type: application/json" \
      -d '{"username": "testuser", "password": "password123"}'
 ```
 
 Вхід та зберігання токена в змінну середовища:
 ```bash
-TOKEN=$(curl -X POST http://localhost:5000/login \
+TOKEN=$(curl -s -X POST http://localhost:5000/api/v1/login \
      -H "Content-Type: application/json" \
-     -d '{"username": "testuser", "password": "password123"}')
+     -d '{"username": "testuser", "password": "password123"}' | python3 -c "import sys, json; print(json.load(sys.stdin)['access_token'])")
 ```
 
 Перегляд товарів:
 ```bash
-curl -X GET http://localhost:5000/products
+curl -X GET http://localhost:5000/api/v1/products
 ```
 
 Додавання товару, використовуючи збережений токен:
 ```bash
-curl -X POST http://localhost:5000/products \
+curl -X POST http://localhost:5000/api/v1/products \
      -H "Authorization: Bearer $TOKEN" \
      -H "Content-Type: application/json" \
      -d '{"name": "Gaming Laptop", "price": 25000}'
@@ -37,13 +37,13 @@ curl -X POST http://localhost:5000/products \
 
 Видалення товару:
 ```bash
-curl -X DELETE http://localhost:5000/products/1 \
+curl -X DELETE http://localhost:5000/api/v1/products/1 \
      -H "Authorization: Bearer $TOKEN"
 ```
 
 Створення замовлення:
 ```bash
-curl -X POST http://localhost:5000/orders \
+curl -X POST http://localhost:5000/api/v1/orders \
      -H "Authorization: Bearer $TOKEN" \
      -H "Content-Type: application/json" \
      -d '{"items": ["Mouse", "Keyboard"]}'
@@ -51,14 +51,13 @@ curl -X POST http://localhost:5000/orders \
 
 Видалення власного замовлення:
 ```bash
-curl -X DELETE http://localhost:5000/orders/1 \
+curl -X DELETE http://localhost:5000/api/v1/orders/1 \
      -H "Authorization: Bearer $TOKEN"
 ```
 
 Додавання товару без токена(приведе до помилки):
 ```bash
-curl -X POST http://localhost:5000/products \
-     -H "Authorization: Bearer $TOKEN" \
+curl -X POST http://localhost:5000/api/v1/products \
      -H "Content-Type: application/json" \
      -d '{"name": "Mouse", "price": 3000}'
 ```
