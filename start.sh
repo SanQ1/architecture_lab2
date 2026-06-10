@@ -1,4 +1,4 @@
 #!/bin/bash
 
 source venv/bin/activate
-python3 app.py
+export FLASK_APP=src.main && flask run
