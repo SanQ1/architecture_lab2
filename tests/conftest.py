@@ -1,15 +1,12 @@
 import pytest
-from unittest.mock import Mock
+from src.main import db, app 
+from unittest.mock import Mock, MagicMock
 from src.application.handlers import ProductHandler, OrderHandler
-from unittest.mock import MagicMock
 from sqlalchemy import create_engine
 from src.infrastructure.models import Base
-from src.main import app 
-from flask_jwt_extended import create_access_token
-from src.main import db 
-from src.main import db, app 
-from sqlalchemy.orm import sessionmaker, scoped_session
 from src.infrastructure.models import UserEntity, ProductEntity, OrderEntity
+from flask_jwt_extended import create_access_token
+from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.pool import StaticPool
 
 @pytest.fixture
