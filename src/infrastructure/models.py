@@ -17,12 +17,14 @@ class UserEntity(Base):
 
 class ProductEntity(Base):
     __tablename__ = "products"
+
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column()
     price: Mapped[float] = mapped_column()
 
 class OrderEntity(Base):
     __tablename__ = "orders"
+
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[str] = mapped_column()
     items: Mapped[str] = mapped_column()

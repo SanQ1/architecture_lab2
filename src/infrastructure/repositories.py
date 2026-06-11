@@ -59,7 +59,7 @@ class PostgresOrderRepository(AbstractOrderRepository):
         entity = db.session.get(OrderEntity, order_id)
         return OrderMapper.to_domain(entity) if entity else None
 
-    def delete(self, order_id):
+    def delete(self, order_id: str) -> None:
         order = self.session.query(OrderEntity).filter_by(id=order_id).first()
         if order:
             self.session.delete(order)

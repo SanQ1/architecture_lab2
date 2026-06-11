@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
-from .models import User
-from .models import Product
-from .models import Order
+from .models import (
+    User,
+    Product,
+    Order
+)
 
 
 class AbstractProductRepository(ABC):
@@ -17,6 +19,10 @@ class AbstractProductRepository(ABC):
     def list(self):
         raise NotImplementedError
 
+    @abstractmethod
+    def delete(self, product_id: int) -> None:
+        raise NotImplementedError
+
 
 class AbstractUserRepository(ABC):
     @abstractmethod
@@ -25,6 +31,10 @@ class AbstractUserRepository(ABC):
 
     @abstractmethod
     def get_by_username(self, username: str) -> User | None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_by_id(self, user_id: str) -> User | None:
         raise NotImplementedError
 
 

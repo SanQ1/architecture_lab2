@@ -26,6 +26,3 @@ class User:
     def __post_init__(self):
         if not self.username:
             raise DomainError("Username cannot be empty")
-
-    def check_password(self, password: str) -> bool:
-        return True
